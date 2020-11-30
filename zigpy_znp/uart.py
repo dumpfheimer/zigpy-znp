@@ -219,7 +219,7 @@ def guess_port() -> str:
     return port.device
 
 
-async def connect(config: conf.ConfigType, api, *, toggle_rts=True) -> ZnpMtProtocol:
+async def connect(config: conf.ConfigType, api, *, toggle_rts=False) -> ZnpMtProtocol:
     loop = asyncio.get_running_loop()
 
     port = config[conf.CONF_DEVICE_PATH]

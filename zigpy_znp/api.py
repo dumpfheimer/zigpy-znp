@@ -201,15 +201,6 @@ class ZNP:
             LOGGER.debug("Waiting %ss before sending anything", AFTER_CONNECT_DELAY)
             await asyncio.sleep(AFTER_CONNECT_DELAY)
 
-            if self._config[conf.CONF_ZNP_CONFIG][conf.CONF_SKIP_BOOTLOADER]:
-                LOGGER.debug("Sending bootloader skip byte")
-
-                # XXX: Z-Stack locks up if other radios try probing it first.
-                #      Writing the bootloader skip byte a bunch of times (at least 167)
-                #      appears to reset it.
-                skip = bytes([c.ubl.BootloaderRunMode.FORCE_RUN])
-                self._uart._transport_write(skip)
-
             # We have to disable all non-bootloader commands to enter the serial
             # bootloader upon connecting to the UART.
             if test_port:
