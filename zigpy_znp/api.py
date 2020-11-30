@@ -208,7 +208,7 @@ class ZNP:
                 #      Writing the bootloader skip byte a bunch of times (at least 167)
                 #      appears to reset it.
                 skip = bytes([c.ubl.BootloaderRunMode.FORCE_RUN])
-                self._uart._transport_write(skip * 256)
+                self._uart._transport_write(skip)
 
             # We have to disable all non-bootloader commands to enter the serial
             # bootloader upon connecting to the UART.
