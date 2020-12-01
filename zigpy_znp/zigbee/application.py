@@ -874,6 +874,11 @@ class ControllerApplication(zigpy.application.ControllerApplication):
 
         try:
             device = self.get_device(ieee=msg.IEEE)
+            if device.nwk != msg.NWK:
+                LOGGER.warning(
+                    "Received a ZDO message with conflicting NWK: device: 0x%04x, expected: 0x%04x", msg.NWK, device.nwk
+                )
+                self.handle_join(nwk=msg.SrcNwk, ieee=msg.SrcIEEE, parent_nwk=msg.ParentNwk)
         except KeyError:
             LOGGER.warning(
                 "Received a ZDO message from an unknown device: %s", msg.IEEE
